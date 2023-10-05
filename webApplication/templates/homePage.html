@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>NumberRecognitionAI</title>
+    <link rel="stylesheet" type="text/css" href="static/css/styles.css">
+    <script defer src="static/js/drawing.js"></script>
+</head>
+<body>
+    <h1>Upload your number! </h1>
+    <form method="POST" action="/output" enctype="multipart/form-data">
+        <input type="file" name="image" accept="image/*">
+        <br/>
+        <br/>
+        <input type="submit" value="Upload">
+    </form>
+
+<canvas id="myCanvas" width = "1000" height="200"></canvas>
+
+<button id="saveButton">Save Canvas</button>
+<button id="clearButton">clear Canvas</button>
+
+
+
+</body>
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Guess</title>
+</head>
+<body>
+    <p>Certainty plot:</p>
+    <img src = "static/plots/certainty_plot.png" alt="certainty plot" width="50%">
+    <br/>
+    <p>Uploaded image:</p>
+    <img src = "static/uploads/picture.png" alt="Given input" width="50%">
+    <br/>
+    <p>An example of the (last) parsed image by neural network:</p>
+    <img src = "static/normalizedPictures/picture.png" alt="Given input" width="25%">
+    <br/>
+    <label for="guess">The Neural network's best guess was:</label>
+    <input type="text" name="guess" value="{{ guess }}" id="guess">
+    <br/>
+    <label for="certainty">The network gave this with a certainty(%): </label>
+    <input type="text" name="certainty" value="{{ certainty }}" id="certainty">
+    <br/>
+
+<!--    <form method="GET" action="/">-->
+<!--        <button type="submit">Upload new image</button>-->
+<!--    </form>-->
+
+</body>
+</html>
