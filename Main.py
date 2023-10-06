@@ -3,7 +3,7 @@ from PIL import Image
 from Data import get_mnist_train, get_mnist_test, parsingPictureWithoutInversion, resizeImage, separatingNumbers, filterImages
 from NeuralNetwork import *
 from Helper import plotting
-
+from HelperLoss import plottingLoss
 network = neuralNetwork()
 
 
@@ -14,25 +14,35 @@ def train():
 
     images_train, labels_train = get_mnist_train()
     print("IMAGES UPLOADED!")
-
+    loss_list = list()
     EPOCH = 5  # Number of epoch's/iterations
 
     for i in range(EPOCH):
+        k = 0
         start_time = time.perf_counter()
         correct = 0
         for image, label in zip(images_train, labels_train):
             image.shape += (1,)
             label.shape += (1,)
+
+            if k == 1000:
+                loss_list.append(network.loss[0])
+                k = 0
+
             network.forward(image, label)
             if np.argmax(network.output) == np.argmax(label):
                 correct += 1
             network.backward()
+            k += 1
+
         end_time = time.perf_counter()
         print(f"accuracy is {correct/len(images_train)}")
         print(f"time spent:{end_time - start_time}")
         network.learning_rate /= 2  # Dividing learning rate after each epoch
         network.save()  # saving the model
+        plottingLoss(loss_list)
     return
+
 
 def test():
     """"
@@ -41,7 +51,7 @@ def test():
 
     images_test, labels_test = get_mnist_test()
     print("IMAGES UPLOADED!")
-    network.load('modelDEF.pkl')  # Loading model
+    network.load('modelDEFTEST.pkl')  # Loading model
 
     start_time = time.perf_counter()
     correct = 0
@@ -68,18 +78,14 @@ def testMIPerCase(filename):
     certainty = 1
     guess = ""
     im = Image.open(filename)  # Opening the testing image
+    im = im.convert("L")
     filtered_images = filterImages(im)
-    #filtered_images.show()
     splitted_images = separatingNumbers(filtered_images)
+
     for im in splitted_images:
         im = resizeImage(im, test=True)
-        #im.show()
-        im.save('static/normalizedPictures/picture.png')
+        im.save('static/normalizedPictures/picture.png')  # COMMENT OUT IF RUNNING train() or test()
         im = parsingPictureWithoutInversion(im, True)
-        #im = im.reshape((28, 28))
-        #image = Image.fromarray(np.uint8(im*255))
-        #image.show()
-        #pixelToPicture(im)
         im.shape = (784, 1)
         network.load('modelDEF.pkl')
         network.forward(im, np.empty(1))  # As there is no target in this case, an empty matrix will be sent as target
@@ -103,20 +109,8 @@ def testMIPerCase(filename):
 
         list_nums.append(top_three_numbers)
         list_probs.append(top_three_numbers_probs)
-        #print(str(np.argmax(network.output)))
         guess = guess + str(np.argmax(network.output))
 
-    #print("Certainty(%):", round(certainty*100, 1))
-    #print('the guess is:', int(guess))
     plotting(list_nums, list_probs)
 
     return int(guess), round(certainty*100, 1)
-
-
-if __name__ == "__main__":
-    #testPerCase()
-    #print(parsingPicture(im))
-    #train()
-    #test()
-    #testPerCase()
-    testMIPerCase('webApplication/static/uploads/picture.png')

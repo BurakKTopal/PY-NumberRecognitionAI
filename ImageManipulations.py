@@ -1,5 +1,7 @@
 import random
 from PIL import Image, ImageOps
+
+
 def rotate(im):
     """"
     Rotating image by angle ~ N(0,sigma = 4)
@@ -22,6 +24,7 @@ def displace(im):
     # Paste the original image onto the new image with the desired translation
     translated_image.paste(im, (x_translation, y_translation))
     return translated_image
+
 
 def noise(im):
     """""

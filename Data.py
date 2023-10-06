@@ -13,9 +13,8 @@ def get_mnist_train():
     for index in range(len(images)):
         image = images[index]
         image = Image.fromarray(np.uint8(image))
-
         image = resizeImage(image, False)  # Normalizing the pictures of the MNIST data set
-        adapted_image = parsingPictureWithoutInversion(image, False)  # Adding the image manipulations to the mnist set
+        adapted_image = parsingPictureWithoutInversion(image, False)*255  # Adding the image manipulations to the mnist set
         images[index] = np.reshape(adapted_image, (28, 28))  # Saving normalized picture
 
     images = images.astype("float32") / 255  # Pixel brightness value as input elements
@@ -36,10 +35,10 @@ def get_mnist_test():
         image = images[index]
         image = Image.fromarray(np.uint8(image)) # Creating image from array of pixel brightness
         image = resizeImage(image, False)   # normalizing the picture
-        adapted_image = parsingPictureWithoutInversion(image, False)  # Adding the image manipulations to the mnist set
+        adapted_image = parsingPictureWithoutInversion(image, False)*255  # Adding the image manipulations to the mnist set
         images[index] = np.reshape(adapted_image, (28, 28))
 
-    images = images.astype("float32") / 255 # saving the entries of the image arrays as float with values between 0-1
+    images = images.astype("float32") / 255  # saving the entries of the image arrays as float with values between 0-1
 
     images = np.reshape(images, (images.shape[0], images.shape[1] * images.shape[2]))
     labels = np.eye(10)[labels]
@@ -56,7 +55,6 @@ def parsingPictureWithoutInversion(im, test):
         im = noise(im) # Only adding a noise factor to the train set to simulate real-world error
 
     width, height = 28, 28  # Height and width of image(28px by 28px)
-    #conversion = np.zeros(784)
 
     if test:
         im = im.resize((width, height))  # Self-manufactured pictures must be resized.
@@ -149,7 +147,6 @@ def pixelToPicture(image_array):
     image.show()
 
     # Optionally, save the image to a file
-    #image.save('output_image.png')
     return image
 
 
@@ -194,11 +191,8 @@ def resizeImageVertical(image, test):
     # Crop the image to the desired boundaries
     cropped_image_array = image_array[top_boundary:bottom_boundary + 1, :]
 
-    if test:
-        cropped_image = Image.fromarray(np.uint8(cropped_image_array*255))  # Correct picture formatting
-    else:
-        cropped_image = Image.fromarray(np.uint8(cropped_image_array))  # Correct picture formatting, no need for 255
-                                                                        # as MNIST data set is already normalized
+    cropped_image = Image.fromarray(np.uint8(cropped_image_array*255))  # Correct picture formatting
+
 
     normalized_image = cropped_image.resize((28, 28))
 
@@ -243,10 +237,7 @@ def resizeImageHorizontal(image, test):
     cropped_image_array = image_array[top_boundary:bottom_boundary + 1, :]
 
     cropped_image_array = np.transpose(cropped_image_array)
-    if test:
-        cropped_image = Image.fromarray(np.uint8(cropped_image_array * 255))  # Correct picture formatting
-    else:
-        cropped_image = Image.fromarray(np.uint8(cropped_image_array))  # Correct picture formatting
+    cropped_image = Image.fromarray(np.uint8(cropped_image_array * 255))  # Correct picture formatting
 
     normalized_image = cropped_image.resize((28, 28))
 
@@ -259,7 +250,6 @@ def separatingNumbers(image):
     """""
 
     splitted_images = []
-    #image = ImageOps.invert(image)  # Supposing the background in white, making it compatible with the MNIST data set
     image = image.convert("L")  # Converting to gray for pixel brightness
     image_array = np.array(image)  # Converting image to image array
 
@@ -279,11 +269,9 @@ def separatingNumbers(image):
 
 
             non_white_rows_splitted_image = np.where(split_image_array.min(axis=1) < 255)
-            #non_white_col_splitted_image = np.where(np.transpose(split_image_array).min(axis=1) < 255)
 
             splitted_image = Image.fromarray(np.uint8(split_image_array))  # Correct picture formatting
 
-            #if not (len(non_white_rows_splitted_image[0]) < 14 or len(non_white_col_splitted_image[0]) < 14):
             if not (len(non_white_rows_splitted_image[0]) < 14):
                 splitted_images.append(splitted_image)  # Saving cut image
             left_boundary = non_white_rows_indices[index + 1]  # Re-indexing the top of the picture
@@ -334,10 +322,12 @@ def filterImages(image):
     image = ImageOps.invert(image)
     image = image.convert("L")
     image_array = np.array(image)
-    threshold = filterBackgroundThreshold(image, 4.5)
-    if threshold > 1:
-        threshold = filterBackgroundThreshold(image, 2)
-
+    n_sd = 3
+    threshold = filterBackgroundThreshold(image, n_sd)
+    while threshold > 1:
+        n_sd -= 1
+        threshold = filterBackgroundThreshold(image, n_sd)
+    print(threshold)
     # Apply the threshold operation using NumPy
     image_array = np.where(image_array < threshold*255, 0, image_array)
     image_array = np.where(image_array >= threshold*255, 255, image_array)

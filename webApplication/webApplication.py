@@ -19,28 +19,32 @@ def index():
 
 @app.route('/upload_canvas', methods = ['POST'])
 def upload_canvas():
+    """"
+    Considering the case where the canvas was used
+    """
     try:
+
         folder_path = 'static/uploads'
         empty_uploads_folder(folder_path)
 
         data = request.get_json()
         image_data = data.get('image')
-        # Process the image_data as needed (e.g., save it to a file or a database)
-        # For simplicity, we'll save it to a file
-        filename = "static/uploads/picture.png"
+
+        filename = "static/uploads/picture.png" # Saving the image in the corresponding folder
         decoded_data = base64.b64decode(image_data.split(',')[1])
         image = Image.open(io.BytesIO(decoded_data))
-        print(image)
-        image = image.convert("L")
+        image = image.convert("L")  # Converting the image in the right format
         image.save(filename)
-
-
-        return redirect('/output')
+        return redirect('/output')  # Redirecting to the image page
 
     except Exception as e:
-        return 'Error uploading image: ' + str(e)
+        session['exception'] = str(e)
+        return render_template('errorPage.html', error=e)
 
 
+@app.route('/error', methods=['POST', 'GET'])
+def error(**kw):
+    return render_template('errorPage.html', error=session['exception'])
 
 
 @app.route('/output', methods=['POST', 'GET'])
@@ -64,9 +68,6 @@ def output():
         if 'image' in request.files:
             image = request.files['image']
             if image.filename != '':
-                # Save the uploaded image to a folder (e.g., "uploads")
-                #filename = 'static/uploads/' + image.filename
-
                 file_extension = os.path.splitext(image.filename)[-1].lower()
                 print(file_extension)
 
@@ -108,6 +109,4 @@ def empty_uploads_folder(folder_path):
     return
 
 if __name__ == '__main__':
-    app.run(debug=True, host='192.168.1.41')
-    #app.run(debug=True, host='10.5.11.176')
-    #app.run(debug=True, host='192.168.116.57')
+    app.run(debug=False, host='localhost')

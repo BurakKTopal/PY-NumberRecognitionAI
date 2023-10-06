@@ -1,7 +1,6 @@
 import numpy as np
 import pickle
 
-
 class neuralNetwork():
     """"
     Neural network for the image processing
@@ -33,21 +32,23 @@ class neuralNetwork():
         :return: the derivative of the sigmoid function
         """
         return x*(1-x)
-    def L2Norm(self, output, target):
+
+
+    def MSELoss(self, output, target):
         """"
         L2-Norm, not used in this model, yet important to calculate
         """
-        return sum((output - target)**2)
+        return sum((output - target)**2)/self.input_size
 
     def forward(self, input, target):
         """"
         forward
         """
-        self.input = np.array(input) # making np array of input, size: 420 x 1
+        self.input = np.array(input)  # making np array of input, size: 420 x 1
         self.hidden = self.sigmoid(self.weights_i_h @ self.input + self.bias_i_h)   # Passing values through activation function
         self.output = self.sigmoid(self.weights_h_o @ self.hidden + self.bias_h_o)  # Output of neural network
         self.delta = self.output - target
-        self.loss = self.L2Norm(self.output, target)
+        self.loss = self.MSELoss(self.output, target)
         return
 
     def backward(self):
@@ -78,7 +79,7 @@ class neuralNetwork():
         Saving the model
         """
         # Define the file path where you want to save the matrices
-        file_path = "modelDEF.pkl"
+        file_path = "savedModels/modelDEFTEST.pkl"
 
         # Save the matrices to a file
         with open(file_path, 'wb') as file:

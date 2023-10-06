@@ -1,8 +1,53 @@
 document.addEventListener("DOMContentLoaded", function () {
 // Get a reference to your canvas element
+
 var canvas = document.getElementById("myCanvas");
 var ctx = canvas.getContext("2d");
+var CanvasLarger = document.getElementById("CanvasLarger");
+var CanvasSmaller = document.getElementById("CanvasSmaller");
+var pencilThicker = document.getElementById("pencilThicker");
+var pencilFiner = document.getElementById("pencilFiner");
+var changeColor = document.getElementById("changeColor");
+
+// Set the line color and width
+canvas.width = 700
+ctx.strokeStyle = "black"; // Change this to your desired color
+ctx.lineWidth = 12; // Change this to your desired line width
+var listOfColors = ["#120307", "#00292a", "#130a2e", "#260033"];
+
+CanvasLarger.addEventListener("click", function () {
+if (canvas.width < 1500){
+canvas.width += 100
+ctx.lineWidth = 12;
+}
+})
+CanvasSmaller.addEventListener("click", function (){
+if (canvas.width > 500){
+canvas.width -= 100
+ctx.lineWidth = 12;
+}
+})
+
+pencilThicker.addEventListener("click", function (){
+if (ctx.lineWidth < 25){
+ctx.lineWidth += 1;
+}
+})
+
+pencilFiner.addEventListener("click", function (){
+if (ctx.lineWidth > 5){
+ctx.lineWidth -= 1;
+}
+})
+
+changeColor.addEventListener("click", function (){
+var index = Math.floor(Math.random() * listOfColors.length)
+ctx.strokeStyle = listOfColors[index]
+})
+
+
 ctx.fillStyle = "white";
+
 
 // Variables to track the current and previous mouse coordinates
 var prevX, prevY;
@@ -11,9 +56,8 @@ var currX, currY;
 // Flag to determine whether to start drawing
 var isDrawing = false;
 
-// Set the line color and width
-ctx.strokeStyle = "black"; // Change this to your desired color
-ctx.lineWidth = 15; // Change this to your desired line width
+
+
 
 // Add an event listener to track mouse movements
 canvas.addEventListener("mousemove", function (event) {
@@ -33,6 +77,9 @@ canvas.addEventListener("mousemove", function (event) {
         prevY = currY;
     }
 });
+
+
+
 
 // Add an event listener to start drawing when the mouse button is pressed
 canvas.addEventListener("mousedown", function (event) {

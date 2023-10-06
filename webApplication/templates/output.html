@@ -3,27 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <title>Guess</title>
+    <link rel="stylesheet" type="text/css" href="static/css/StylingOutputPage.css">
 </head>
 <body>
-    <p>Certainty plot:</p>
-    <img src = "static/plots/certainty_plot.png" alt="certainty plot" width="50%">
-    <br/>
-    <p>Uploaded image:</p>
-    <img src = "static/uploads/picture.png" alt="Given input" width="50%">
-    <br/>
-    <p>An example of the (last) parsed image by neural network:</p>
-    <img src = "static/normalizedPictures/picture.png" alt="Given input" width="25%">
-    <br/>
-    <label for="guess">The Neural network's best guess was:</label>
-    <input type="text" name="guess" value="{{ guess }}" id="guess">
-    <br/>
-    <label for="certainty">The network gave this with a certainty(%): </label>
-    <input type="text" name="certainty" value="{{ certainty }}" id="certainty">
-    <br/>
 
-<!--    <form method="GET" action="/">-->
-<!--        <button type="submit">Upload new image</button>-->
-<!--    </form>-->
+    <div class="container">
+    <div>
+        <p id="guess">The Neural Network's best guess was <strong>{{guess}}</strong> with a certainty of
+        <strong>{{certainty}}%</strong></p>
+    </div>
 
+        <div id="certaintyPlot">
+        <center><label>Certainty plot</label></center>
+        <img src="static/plots/certainty_plot.png" alt="certainty plot">
+        </div>
+
+        <div id="uploadedImage">
+        <center><label>Uploaded image</label></center>
+        <br/>
+        <img src="static/uploads/picture.png" alt="Given input">
+        </div>
+
+        <div id="exampleParsedImage">
+        <center><label>An example of the (last) parsed image by neural network</label></center>
+        <br/>
+        <img src="static/normalizedPictures/picture.png" width = 150 alt="Given input">
+        </div>
+    </div>
+<footer>Author: Burak Kucuktopal
+
+    <br/>
+        <a href="https://github.com/BurakKTopal">Github</a>
+    <br/>
+    </footer>
 </body>
 </html>

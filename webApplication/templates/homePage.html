@@ -3,24 +3,320 @@
 <head>
     <meta charset="UTF-8">
     <title>NumberRecognitionAI</title>
-    <link rel="stylesheet" type="text/css" href="static/css/styles.css">
+    <link rel="stylesheet" type="text/css" href="static/css/StylingHomePage.css">
     <script defer src="static/js/drawing.js"></script>
+    <script defer src="static/js/HomePageManipulations.js"></script>
+    <script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
 </head>
 <body>
-    <h1>Upload your number! </h1>
+<div id="title">
+<center><h1>PY-NumberRecognitionAI</h1></center>
+</div>
+<div id="introduction">
+    <h2>Introducing the creator</h2>
+    <p>
+        Hello there! I'm Burak and I always wanted to write an AI which can recognize handwritten numbers. When this idea
+        first came to mind, my programming skills weren't that developed yet unfortunately, resulting in the fact that I
+        stalled this project.
+    </p>
+    </div>
+<div>
+    <h2>Making my way to a real Neural Network(NN)</h2>
+    <p>
+        After a few years, I've gathered some knowledge of the programming world and learned some HTML, CSS and mainly
+        Python. I did some projects concerning making <a href="https://github.com/BurakKTopal/Chess">chess</a> with
+        a chess bot based on <a href="https://en.wikipedia.org/wiki/Alpha%E2%80%93beta_pruning">alpha-beta pruning</a>
+        and <a href="https://en.wikipedia.org/wiki/Zobrist_hashing">Zobrist hashing</a>. Even though it played decent, it
+        wasn't really an AI, only a clever algorithm. My next step was making an AI, but where to begin? Circumventing
+        the possibility to write a neural network(NN) myself, I watched a
+        <a href="https://www.youtube.com/watch?v=L8ypSXwyBds">Youtube video</a> on making a snake AI with PyTorch.
+        This really helped me in learning how a NN operates and more specifically reinforcement Q-learning. I also used
+        the same neural network on my pong game. These two projects, together with some other small projects, can be
+        found in <a href="https://github.com/BurakKTopal/SmallPythonProjects">SmallPythonProjects</a> repository on
+        GitHub.
+    </p>
+    <p>
+        After familiarizing with Neural Networks, I thought that the next step must be to make one myself!
+    </p>
+</div>
+
+<div id="neural_network">
+    <h2>Defining the neural network</h2>
+    <p>
+        First I thought about what project I should tackle, but then it hit me; I had this number recognition AI to build!
+        I did some research online and found a great video and a site which I read through. Together with my mathematical
+        knowledge I was able to combine these two to form a neural network and put it into code.
+    </p>
+
+    <h3>Architecture</h3>
+    <p>
+        I knew I was going to use the <a href="https://en.wikipedia.org/wiki/MNIST_database">MNIST database</a> to train
+        my NN, so based on this the input layer has 784(28x28) cells. I've chosen to add a hidden layer with 522 cells.
+        The output layer has 10 cells, each corresponding to a number(0-9). I also added to the input and hidden layer
+        <a href="https://stackoverflow.com/questions/2480650/what-is-the-role-of-the-bias-in-neural-networks">a bias neuron</a>
+        for a better learning curve. The architecture would look something like this(not on scale!):
+        <br/>
+        <img src="static/Images/NNArchitecture.png" width = 50% height = 50% alt="Neural network with bias neurons"/>
+    </p>
+
+    <h3>Model</h3>
+        <p>
+            I used as loss function the MSE. Furthermore I have an
+            <a href="https://en.wikipedia.org/wiki/Activation_function">activation function </a> added to the hidden layer
+            and the output layer. The used activation function is the
+            <a href="https://en.wikipedia.org/wiki/Sigmoid_function">sigmoid function</a>. The method for adaptively
+            changing the weigth matrices is achieved by <a href="https://en.wikipedia.org/wiki/Gradient_descent">
+            Gradient Descent</a>
+        </p>
+    <h3>Training the neural network</h3>
+    <p>
+        Now that the model is set, it needs to be trained. To do this, I've used the MNIST database. This is a database
+        containing 60 000 training images of handwritten numbers, and 10 000 test images to validate the credibility of the
+        model.
+    </p>
+    <p>
+        Initially, I picked the images as they are and trained my model with them. But when you take a look at the dataset
+        you'll quickly understand that there is place for making the dataset more normalized. This is achieved by adding
+        following filtering(see
+        <a href="https://github.com/BurakKTopal/PY-NumberRecognitionAI/blob/main/Data.py">Data.py</a>) in the images:
+    </p>
+            <ul>
+                <li>Adding constant horizontal spacing between the number and the horizontal edges of the image.</li>
+                <li>Adding constant spacing between the number and the vertical edges</li>
+                <li>Extra: adding some noise(see
+                    <a href="https://github.com/BurakKTopal/PY-NumberRecognitionAI/blob/main/ImageManipulations.py#26">this</a>)
+                    in the data to train the model better. This is optional and can be easily deleted. For this, comment
+                the noise()-function in
+                    <a href="https://github.com/BurakKTopal/PY-NumberRecognitionAI/blob/main/Data.py#L56">Data.py</a> in the source code out.</li>
+            </ul>
+    <h4>Results of the training</h4>
+    <p>
+        I've trained the model on the MNIST data set in 5 EPOCH's. The hyperparameters, together with the accuracy and
+        learning rate(LR) is given in following table:
+    </p>
+    <table id="trainingHyperParameters" class = "visualTable">
+        <tr>
+            <th>time(s)</th>
+            <th>Epoch</th>
+            <th>LR</th>
+            <th>Accuracy(%)</th>
+        </tr>
+        <tr>
+            <td>266</td>
+            <td>1</td>
+            <td>0.1</td>
+            <td>89.43</td>
+        </tr>
+        <tr>
+            <td>246</td>
+            <td>2</td>
+            <td>0.05</td>
+            <td>96.17</td>
+        </tr>
+        <tr>
+            <td>222</td>
+            <td>3</td>
+            <td>0.025</td>
+            <td>97.06</td>
+        </tr>
+        <tr>
+            <td>180</td>
+            <td>4</td>
+            <td>0.0125</td>
+            <td>97.41</td>
+        </tr>
+        <tr>
+            <td>183</td>
+            <td>5</td>
+            <td>0.00625</td>
+            <td>97.54</td>
+        </tr>
+    </table>
+    The loss function's graph is given as follows with the steps(per 1000) as x and the loss as y-value.
+    <img src="static/Images/PlotLoss.png"/>
+    As can be seen: the loss quickly decreases, except for some different tests, for which the AI makes a very bad guess.
+    <h3>Testing the neural network on the test set</h3>
+    <p>
+        After testing on the test set, I get an accuracy of 96.84%
+    </p>
+
+</div>
+<div id="Local Hosting the AI">
+    <h2>Accepting input of user via a Local Host</h2>
+    <p>
+        Testing the neural network gave some pretty good results(97% for the test set after 5 Epoch's and an adaptive
+        learning rate of \( 0.1 \rightarrow 0.05 \rightarrow 0.025 \rightarrow 0.0125 \rightarrow 0.00625 \).
+        But this was all done via my IDE(I used Pycharm) and
+        I could read the guesses from the terminal, but this is not user-friendly! Therefore I tried to write a website
+        via the local host using Python Flask. On this site(which you're reading on now!) you can upload your own image.
+        The image is being sent through a TCP connection to the server(such as your laptop).
+    </p>
+    <p>
+        Once the picture is fetched by the server, the picture undergoes following steps:
+    </p>
+    <ol>
+        <li>Filtering the background noise: the MNIST dataset has no background noise, thus our neural network
+        is also not prepared for it! To handle this, I've written the
+            <a href="https://github.com/BurakKTopal/PY-NumberRecognitionAI/blob/main/Data.py#L306">filterBackground()</a>-function which
+        takes the average of the pixel brightness of the image, and sets all pixels which have a brightness less
+        than this, on a brightness zero. On the other side, to accentuate the pixels we do wan't, we set their brightness
+        on 1(on the normalized scale)</li>
+
+        <li>Checking for multi-digit case: we check if there are clumps of colored areas and look if they're sufficiently
+        far apart and sufficiently broad. Assuming that the picture has a dimension way bigger then 28, we take only
+        clumps as valid if they're thicker than 14 pixels, if not we disregard them.
+            See <a href="https://github.com/BurakKTopal/PY-NumberRecognitionAI/blob/main/Data.py#L256">separatingNumbers()</a> in Data.py
+        </li>
+        <li>
+            We then centralize the individual numbers once the splitting is done. Note that we consider
+            the case where the number only contains one digit also as split.
+        </li>
+        <li>
+            For each picture, there is being made a guess.
+        </li>
+        <li>
+            Once all digits the number is formed of are covered, we paste all the individual guesses in logical order
+            and save them in the variable 'guess', together with the certainty of the model to guess that number in
+            'certainty'.
+        </li>
+        <li>
+            The 'guess' and 'certainty' variables are filled in the
+            <a href="https://github.com/BurakKTopal/PY-NumberRecognitionAI/blob/main/webApplication/templates/output.html">output.html</a> page.
+        </li>
+        <li>
+            Finally, the user is being shown the certainty plot, together with the image he uploaded to compare the guesses with
+            what he'd given. See the next section for how these certainty plots are generated using the TensorProduct!
+        </li>
+    </ol>
+</div>
+    <div id="certaintyPlots">
+    <h2>The construction of certainty plots with Tensor Products</h2>
+    <p>
+        As explained in the previous section, in case of a multi-digit number, it is being split into the different
+        numbers and each time the NN gives an output with a certainty. I've designed the code so that this NN can give
+        an array with his guesses, together with the certainty(0 being not sure at all and 1 being completely sure
+        about the guess). As an example, suppose we upload following picture:
+    </p>
+    <img src="static/Images/ExampleMultiDigitUpload.png"/>
+    <p>
+        This picture is being split into two pictures, and for each there is being made a ranking. This ranking is
+        internally represented as:
+    </p>
+        <br/>
+        <br/>
+        <center>
+        list_of_nums = [['3'  , '8'  , '5']  , ['3', '8' , '2']]
+        <br/>
+        list_of_probs = [[0.007, 0.041, 0.951], [0.0, 0.04, 0.96]]
+        </center>
+        <br/>
+        <br/>
+    <p>
+        Visualizing it using a table gives:
+    </p>
+<table id="ExampleNumberCertainty" class="visualTable">
+    <tr>
+        <th></th>
+        <th>guess1</th>
+        <th>probability1</th>
+        <th>guess2</th>
+        <th>probability2</th>
+        <th>guess3</th>
+        <th>probability3</th>
+    </tr>
+
+    <tr>
+        <td>First Digit</td>
+        <td>5</td>
+        <td>0.951</td>
+        <td>8</td>
+        <td>0.041</td>
+        <td>3</td>
+        <td>0.007</td>
+    </tr>
+    <tr>
+        <td>Second Digit</td>
+        <td>2</td>
+        <td>0.96</td>
+        <td>8</td>
+        <td>0.04</td>
+        <td>3</td>
+        <td>0</td>
+    </tr>
+</table>
+<p>
+    Calculating the certainty of the guess is pretty straightforward; as we suppose the number guessing
+    is independent of each other(non-updating NN).
+    <br/>
+    C(G) will represent the certainty of the number Guess. The letter
+    G will represent the 'Guess', the D means 'Digit'. \(G_{1}D_{1}\) will mean the best Guess(Guess 1) for the first Digit(Digit 1).
+    <br/>
+    $$C(G) = C(G_{1}D_{1})\cdot C(G_{1}D_{2})$$
+    <br/>
+    $$\Downarrow$$
+    <br/>
+    $$C(G) = 0.951 \cdot 0.95  \approx 0.913 \Rightarrow 91.3\%$$
+</p>
+    <p>
+        This is done for all the possible values, each time you take a number out of one list, you concatenate it
+        with one of the other list. You multiply the probabilities connected to these numbers to get the certainty of
+        the neural network for that specific number combination. This process is repeated for all the elements in the lists. So the
+        certainty of \((G_{1}D_{1} \wedge G_{1}D_{2}), (G_{1}D_{1} \wedge G_{2}D_{2})\) and \((G_{1}D_{1} \wedge G_{3}D_{2})\) is done,
+        and this for the other 2 digits in the first list too, resulting in \(3^{2} = 9\) number configurations.
+        This operation can be easily done using the TensorProduct for the digits,
+        and a similar list operation containing strings(the numbers are strings so that they can be concatenated in
+        Python: \(5 + 6 = 11 \), but we want ('5' + '6' = '56'\)).
+    </p>
+    <center><label>Click on the picture to see the numbers together with their respective probabilities!</label></center>
+    <img src="static/Images/TensorProductNums.png" id="TPN"/>
+    <img src="static/Images/TensorProductProbs.png" id="TPP" style="display:none"/>
+
+        <p>
+            From the animation above, you can see that the certainty of guessing 32 is 0.7%. Meaning it will be disregarded.
+            The plotting itself is done with <a href="https://github.com/BurakKTopal/PY-NumberRecognitionAI/blob/main/Helper.py">
+            Helper.py
+        </a>
+        </p>
+                <center><h4>That's a wrap up!
+            <br/>You can test the AI by uploading your picture or write your beloved number in the canvas and upload.</h4></center>
+</div>
+<div>
+    <h1>Upload your own number! </h1>
     <form method="POST" action="/output" enctype="multipart/form-data">
         <input type="file" name="image" accept="image/*">
         <br/>
         <br/>
         <input type="submit" value="Upload">
     </form>
+</div>
 
-<canvas id="myCanvas" width = "1000" height="200"></canvas>
+<div>
+    <h1>Draw a number and send it through!</h1>
+    <center><canvas id="myCanvas" height="200" width = 1000 ></canvas></center>
+    <center>
+    <table>
+        <tr>
+            <td><button id="CanvasSmaller">Make canvas smaller</button></td>
+            <td><button id="clearButton">Clear</button></td>
+            <td><button id="CanvasLarger">Make canvas bigger</button></td>
+        </tr>
+        <tr>
+            <td><button id="pencilFiner">Make pencil finer</button></td>
+            <td><button id="changeColor">Change color!</button></td>
+            <td><button id="pencilThicker">Make pencil thicker</button></td>
+        </tr>
+    </table>
+        </center>
+            <td><button id="saveButton" style = "background-color:darkblue;">Check my number!</button></td>
+    </div>
+<br/>
+<footer>Author: Burak Kucuktopal
 
-<button id="saveButton">Save Canvas</button>
-<button id="clearButton">clear Canvas</button>
-
-
-
+    <br/>
+        <a href="https://github.com/BurakKTopal">Github</a>
+    <br/>
+    </footer>
 </body>
 </html>

@@ -1,0 +1,154 @@
+
+/* Style the table */
+V {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px auto;
+    background-color: #f7f7f7;
+    border: 2px solid #333;
+    border-radius: 5px;
+}
+
+/* Style table header (th) */
+.visualTable th {
+    width: 100%;
+    background-color: #333;
+    color: #fff;
+    padding: 10px;
+    text-align: left;
+}
+
+/* Style table cells (td) */
+.visualTable td {
+    width: 100%;
+    padding: 8px;
+    border: 2px solid #ccc;
+}
+.visualTable tr {
+    width: 100%;
+    padding: 8px;
+    border: 2px solid #ccc;
+}
+
+/* Add hover effect to rows */
+.visualTable tr:hover {
+    background-color: #e0e0e0;
+}
+
+
+#toolbar {
+    margin-bottom: 20px;
+}
+
+body {
+    font-family: "Times New Roman", Times, serif;
+    background-color: #f0f0f0;
+    margin: 0;
+    padding: 0;
+}
+
+/* Style the h1 heading */
+h1 {
+    text-align: center;
+    color: #0077cc;
+    margin-top: 20px;
+}
+
+#title{
+background-color: #d8f9ff;
+}
+/* Style the introduction section */
+#introduction {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Style the main content section */
+div {
+    background-color: #fff;
+    padding: 20px;
+    margin: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Style links */
+a {
+    color: #0077cc;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* Style images */
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+    border-radius: 5px;
+}
+
+/* Style the upload form */
+form {
+    text-align: center;
+    margin-top: 20px;
+}
+
+/* Style buttons */
+input[type="submit"] {
+    background-color: #0077cc;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+input[type="submit"]:hover {
+    background-color: #005299;
+}
+label {
+    font-size: 20px;
+    font-weight: bolder;
+    color: #005299;
+}
+
+/* Style canvas */
+#myCanvas {
+    margin: auto;
+    border:black 3px solid;
+    background-color: #fff;
+    margin-top: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Style buttons for canvas */
+button {
+    display: block;
+    margin: 10px auto;
+    padding: 10px 20px;
+    background-color: #0077cc;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+
+
+footer{
+    font-family: Arial;
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 20px;
+    font-weight: bold;
+}

@@ -1,0 +1,63 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+    margin: 0;
+    padding: 0;
+}
+div {
+    background-color: #fff;
+    padding: 20px;
+    margin: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+/* Style the container for the content */
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f0f0f0;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Style the images */
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+    border-radius: 5px;
+}
+
+/* Style the input fields */
+input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    margin: 5px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+/* Add some spacing between elements */
+br {
+    clear: both;
+}
+footer{
+    font-family: Arial;
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 20px;
+    font-weight: bold;
+}
+
+label {
+    font-weight: bolder;
+    color: #005299;
+}
+
+#guess {
+font-size: 25px;
+}
