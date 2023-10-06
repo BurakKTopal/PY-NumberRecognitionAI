@@ -5,9 +5,10 @@ Implemention of a Neural Network to recognize multi-digit numbers in a website w
 ## Required libraries
 See <a href="https://github.com/BurakKTopal/PY-NumberRecognitionAI/blob/main/requirements.txt">requirements.txt</a>
 
-##Setup
+
+## Setup
 Clone the repository and run the webserver to see the additional information about this repository. 
 
 
-##Author
+## Author
 Burak Kucuktopal
