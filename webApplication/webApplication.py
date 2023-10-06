@@ -69,7 +69,6 @@ def output():
             image = request.files['image']
             if image.filename != '':
                 file_extension = os.path.splitext(image.filename)[-1].lower()
-                print(file_extension)
 
                 filename = 'static/uploads/picture.png'
                 folder_path = 'static/uploads'
@@ -103,7 +102,7 @@ def empty_uploads_folder(folder_path):
         try:
             if os.path.isfile(file_path):
                 os.unlink(file_path)
-                print("[DELETED]")
+
         except Exception as e:
             print(f"Error deleting {file_path}: {e}")
     return

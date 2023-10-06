@@ -327,7 +327,6 @@ def filterImages(image):
     while threshold > 1:
         n_sd -= 1
         threshold = filterBackgroundThreshold(image, n_sd)
-    print(threshold)
     # Apply the threshold operation using NumPy
     image_array = np.where(image_array < threshold*255, 0, image_array)
     image_array = np.where(image_array >= threshold*255, 255, image_array)
