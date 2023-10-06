@@ -1,7 +1,7 @@
 from flask import *
 from Main import testMIPerCase
 import os
-from PIL import Image,ImageOps
+from PIL import Image
 import base64
 import io
 
