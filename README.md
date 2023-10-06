@@ -1,5 +1,5 @@
 # PY-ImageRecognitionAI
-Implemention of a Neural Network to recognize multi-digit numbers in a website. The user can upload images as well as write itself on a canvas and upload it to the server. This server parses the sent image and gives a certainty plot for the possible number combinations.
+Implemention of a Neural Network to recognize multi-digit numbers in a website working on local host. The user can upload images as well as write one on a canvas and upload it to the server. This server parses the sent image and gives a certainty plot for the possible number combinations.
 
 
 ## Required libraries
