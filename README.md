@@ -3,7 +3,8 @@ Implemention of a Neural Network to recognize multi-digit numbers in a website w
 
 
 ## Required libraries
-See <a href="https://github.com/BurakKTopal/PY-NumberRecognitionAI/blob/main/requirements.txt">requirements.txt</a>
+See <a href="https://github.com/BurakKTopal/PY-NumberRecognitionAI/blob/main/requirements.txt">requirements.txt</a>. To configure the python interpreter, open 
+pyvenv.cfg.
 
 
 ## Setup
