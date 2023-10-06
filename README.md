@@ -7,7 +7,7 @@ See <a href="https://github.com/BurakKTopal/PY-NumberRecognitionAI/blob/main/req
 
 
 ## Setup
-Clone the repository and run the webserver to see the additional information about this repository. 
+Clone the repository and run the <a href="https://github.com/BurakKTopal/PY-NumberRecognitionAI/blob/main/webApplication/webApplication.py">webApplication.py</a> to see the additional information about this repository. 
 
 
 ## Author
