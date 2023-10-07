@@ -69,7 +69,7 @@ def test():
     return
 
 
-def testMIPerCase(filename):
+def ForwardingPictureToNN(filename):
     """"
     We can use the AI for uploading own pictures and test for results
     """

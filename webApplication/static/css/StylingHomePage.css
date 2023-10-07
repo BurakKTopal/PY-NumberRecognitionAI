@@ -152,3 +152,7 @@ footer{
     padding: 20px;
     font-weight: bold;
 }
+
+#drawingCanvas {
+  user-select: none;
+}

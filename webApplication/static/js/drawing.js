@@ -60,7 +60,7 @@ var isDrawing = false;
 
 
 // Add an event listener to track mouse movements
-canvas.addEventListener("mousemove", function (event) {
+canvas.addEventListener("pointermove", function (event) {
     if (isDrawing) {
         // Capture the current mouse coordinates
         currX = event.clientX - canvas.getBoundingClientRect().left;
@@ -82,7 +82,8 @@ canvas.addEventListener("mousemove", function (event) {
 
 
 // Add an event listener to start drawing when the mouse button is pressed
-canvas.addEventListener("mousedown", function (event) {
+canvas.addEventListener("pointerdown", function (event) {
+    //document.body.style.overflowY = "hidden";
     // Capture the starting mouse coordinates
     prevX = event.clientX - canvas.getBoundingClientRect().left;
     prevY = event.clientY - canvas.getBoundingClientRect().top;
@@ -90,8 +91,9 @@ canvas.addEventListener("mousedown", function (event) {
 });
 
 // Add an event listener to stop drawing when the mouse button is released
-canvas.addEventListener("mouseup", function () {
+canvas.addEventListener("pointerup", function () {
     isDrawing = false;
+    //document.body.style.overflowY = "auto";
 });
 
 // Function to clear the canvas

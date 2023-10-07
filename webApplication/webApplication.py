@@ -1,11 +1,12 @@
 from flask import *
-from Main import testMIPerCase
+from Main import ForwardingPictureToNN
 import os
 from PIL import Image
 import base64
 import io
 
 app = Flask(__name__)
+
 
 UPLOAD_FOLDER = 'uploads'
 
@@ -60,7 +61,7 @@ def output():
         folder_path = 'static/normalizedPictures'
         empty_uploads_folder(folder_path)
 
-        guess, certainty = testMIPerCase(filename)
+        guess, certainty = ForwardingPictureToNN(filename)
         print(guess, "CERTAINTY:", certainty)
         return render_template('output.html', guess=guess, certainty=certainty)
 
@@ -77,7 +78,7 @@ def output():
 
                 if file_extension in ['.jpg']:
                     img = Image.open(filename)
-                    img = img.rotate(-90, expand=True)  # Getting rid of orientation metadata
+                    #img = img.rotate(-90, expand=True)  # Getting rid of orientation metadata
                     empty_uploads_folder(folder_path)
                     img.save(filename)
 
@@ -87,7 +88,7 @@ def output():
                 folder_path = 'static/normalizedPictures'
                 empty_uploads_folder(folder_path)
 
-                guess, certainty = testMIPerCase(filename)
+                guess, certainty = ForwardingPictureToNN(filename)
 
                 return render_template('output.html', guess=guess, certainty=certainty)
 
@@ -108,4 +109,5 @@ def empty_uploads_folder(folder_path):
     return
 
 if __name__ == '__main__':
-    app.run(debug=False, host='localhost')
+    #app.run(debug=False, host='localhost')
+    app.run(port=5000)
