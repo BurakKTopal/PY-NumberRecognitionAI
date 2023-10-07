@@ -7,6 +7,7 @@ from HelperLoss import plottingLoss
 
 network = neuralNetwork()
 
+
 def train():
     """"
     Training the neural network with the train set of the MNIST data set
@@ -25,15 +26,18 @@ def train():
             image.shape += (1,)
             label.shape += (1,)
 
-            if k == 1000:
+
+
+            network.forward(image, label)
+
+            k += 1
+            if k == 100:
                 loss_list.append(network.loss[0])
                 k = 0
 
-            network.forward(image, label)
             if np.argmax(network.output) == np.argmax(label):
                 correct += 1
             network.backward()
-            k += 1
 
         end_time = time.perf_counter()
         print(f"accuracy is {correct/len(images_train)}")
@@ -51,7 +55,7 @@ def test():
 
     images_test, labels_test = get_mnist_test()
     print("IMAGES UPLOADED!")
-    network.load('modelDEFTEST.pkl')  # Loading model
+    network.load('savedModels/modelDEFTEST.pkl')  # Loading model
 
     start_time = time.perf_counter()
     correct = 0
@@ -84,9 +88,9 @@ def ForwardingPictureToNN(filename):
 
     for im in splitted_images:
         im = resizeImage(im, test=True)
-        try: # if you run this file, the wd doesn't match with the given path name
+        try:  # If you run this file, the wd doesn't match with the given path name
             im.save('static/normalizedPictures/picture.png')
-        except:
+        except Exception:
             pass
         im = parsingPictureWithoutInversion(im, True)
         im.shape = (784, 1)
@@ -117,3 +121,7 @@ def ForwardingPictureToNN(filename):
     plotting(list_nums, list_probs)
 
     return int(guess), round(certainty*100, 1)
+
+if __name__ == "__main__":
+    train()
+    test()

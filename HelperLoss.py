@@ -6,8 +6,9 @@ def plottingLoss(list_loss):
     Plotting the loss of the model in function of the steps
     """
     plt.plot(range(len(list_loss)), list_loss)
-    plt.xlabel('Number of Steps')
-    plt.ylabel('MSE loss')
+    plt.xlabel('Number of steps(per 100)')
+    expression = r'$10^{-3}$'
+    plt.ylabel('MSE loss(' + expression + ')')
     plt.title('Loss Over Steps')
     plot_file_name = 'savedModels/lossPlot.png'
     plt.savefig(plot_file_name)

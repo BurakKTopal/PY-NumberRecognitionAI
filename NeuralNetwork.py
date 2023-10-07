@@ -38,7 +38,7 @@ class neuralNetwork():
         """"
         L2-Norm, not used in this model, yet important to calculate
         """
-        return sum((output - target)**2)/self.input_size
+        return sum((output - target)**2)*1000
 
     def forward(self, input, target):
         """"
