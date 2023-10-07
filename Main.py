@@ -4,8 +4,8 @@ from Data import get_mnist_train, get_mnist_test, parsingPictureWithoutInversion
 from NeuralNetwork import *
 from Helper import plotting
 from HelperLoss import plottingLoss
-network = neuralNetwork()
 
+network = neuralNetwork()
 
 def train():
     """"
@@ -84,7 +84,10 @@ def ForwardingPictureToNN(filename):
 
     for im in splitted_images:
         im = resizeImage(im, test=True)
-        im.save('static/normalizedPictures/picture.png')  # COMMENT OUT IF RUNNING train() or test()
+        try: # if you run this file, the wd doesn't match with the given path name
+            im.save('static/normalizedPictures/picture.png')
+        except:
+            pass
         im = parsingPictureWithoutInversion(im, True)
         im.shape = (784, 1)
         network.load('modelDEF.pkl')

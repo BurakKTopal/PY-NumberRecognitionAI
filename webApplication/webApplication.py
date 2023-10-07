@@ -78,7 +78,7 @@ def output():
 
                 if file_extension in ['.jpg']:
                     img = Image.open(filename)
-                    #img = img.rotate(-90, expand=True)  # Getting rid of orientation metadata
+                    img = img.rotate(-90, expand=True)  # Getting rid of orientation metadata
                     empty_uploads_folder(folder_path)
                     img.save(filename)
 

@@ -35,7 +35,10 @@ def plotting(list_nums, list_probs):
 
     plt.xlabel('Number')
     plt.ylabel('Certainty(%)')
-    plot_file_name = 'static/plots/certainty_plot.png'  # COMMENT OUT IF RUNNING train() or test()
-    plt.savefig(plot_file_name)  # COMMENT OUT IF RUNNING train() or test()
+    try:
+        plot_file_name = 'static/plots/certainty_plot.png'  # COMMENT OUT IF RUNNING train() or test()
+        plt.savefig(plot_file_name)  # COMMENT OUT IF RUNNING train() or test()
+    except:
+        pass
     plt.close()
     return
