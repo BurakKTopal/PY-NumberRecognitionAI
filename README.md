@@ -14,7 +14,7 @@ Clone the repository and run the <a href="https://github.com/BurakKTopal/PY-Numb
 With ngrok, it is possible to host the website on an all-around-the-world accessible URL. The laptop on which the ngrok is initialized operates as server and accepts the input from the website-users. For installation of ngrok, see <a href="https://www.tutorialspoint.com/how-to-run-python-flask-app-online-using-ngrok">this</a>.
 
 ## Test case of number 52
-<img src="https://github.com/BurakKTopal/PY-NumberRecognitionAI/blob/main/Media/TestNumberCase52.gif" alt="TestCase number 52 GIF" height=400 width = 100%>
+<img src="https://github.com/BurakKTopal/PY-NumberRecognitionAI/blob/main/Media/TestNumberCase52.gif" alt="TestCase number 52 GIF" height=400 width = 50%>
 <p>
   Example run on the number 52 on the website.
 </p>
