@@ -4,6 +4,7 @@ from Data import get_mnist_train, get_mnist_test, parsingPictureWithoutInversion
 from NeuralNetwork import *
 from Helper import plotting
 from HelperLoss import plottingLoss
+import numpy as np
 
 network = neuralNetwork()
 
@@ -16,6 +17,7 @@ def train():
     images_train, labels_train = get_mnist_train()
     print("IMAGES UPLOADED!")
     loss_list = list()
+    mean_loss_list = list()
     EPOCH = 5  # Number of epoch's/iterations
 
     for i in range(EPOCH):
@@ -29,10 +31,10 @@ def train():
 
 
             network.forward(image, label)
-
+            loss_list.append(network.loss[0])
             k += 1
             if k == 100:
-                loss_list.append(network.loss[0])
+                mean_loss_list.append(np.mean(loss_list))
                 k = 0
 
             if np.argmax(network.output) == np.argmax(label):
@@ -44,7 +46,7 @@ def train():
         print(f"time spent:{end_time - start_time}")
         network.learning_rate /= 2  # Dividing learning rate after each epoch
         network.save()  # saving the model
-        plottingLoss(loss_list)
+        plottingLoss(mean_loss_list)
     return
 
 
@@ -55,7 +57,7 @@ def test():
 
     images_test, labels_test = get_mnist_test()
     print("IMAGES UPLOADED!")
-    network.load('savedModels/modelDEFTEST.pkl')  # Loading model
+    network.load('modelDEFTEST.pkl')  # Loading model
 
     start_time = time.perf_counter()
     correct = 0

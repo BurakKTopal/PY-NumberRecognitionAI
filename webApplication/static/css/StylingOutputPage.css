@@ -61,3 +61,15 @@ label {
 #guess {
 font-size: 25px;
 }
+
+#goBackButton{
+    display: block;
+    margin: 10px auto;
+    padding: 10px 20px;
+    background-color: #0077cc;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}

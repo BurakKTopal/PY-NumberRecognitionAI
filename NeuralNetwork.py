@@ -79,7 +79,7 @@ class neuralNetwork():
         Saving the model
         """
         # Define the file path where you want to save the matrices
-        file_path = "savedModels/modelDEFTEST.pkl"
+        file_path = "modelDEFTEST.pkl"
 
         # Save the matrices to a file
         with open(file_path, 'wb') as file:
