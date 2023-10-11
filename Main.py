@@ -1,13 +1,12 @@
 import time
 from PIL import Image
-from Data import get_mnist_train, get_mnist_test, parsingPictureWithoutInversion, resizeImage, separatingNumbers, filterImages
-from NeuralNetwork3Layers import *
-from NeuralNetwork4Layers import neuralNetworkTwo
-from Helper import plotting
-from HelperLoss import plottingLoss
+from ImageParsing.Data import get_mnist_train, get_mnist_test, parsingPictureWithoutInversion, resizeImage, separatingNumbers, filterImages
+from NeuralNetworks.NeuralNetwork4Layers import neuralNetwork4Layers
+from Visualisation.Helper import plotting
+from Visualisation.HelperLoss import plottingLoss
 import numpy as np
 
-network = neuralNetworkTwo()
+network = neuralNetwork4Layers()
 
 
 def train():
@@ -54,7 +53,10 @@ def test():
 
     images_test, labels_test = get_mnist_test()
     print("IMAGES UPLOADED!")
-    network.load('model4Layers.pkl')  # Loading model
+    try:
+        network.load('model4Layers.pkl')
+    except:
+        network.load('SavedModels/model4Layers.pkl')
 
     start_time = time.perf_counter()
     correct = 0
@@ -94,7 +96,10 @@ def ForwardingPictureToNN(filename):
             pass
         im = parsingPictureWithoutInversion(im, True)
         im.shape = (784, 1)
-        network.load('model4Layers.pkl')
+        try:
+            network.load('model4Layers.pkl')
+        except:
+            network.load('SavedModels/model4Layers.pkl')
         network.forward(im, np.empty(1))  # As there is no target in this case, an empty matrix will be sent as target
 
         output = np.array(network.output)

@@ -1,6 +1,6 @@
 import numpy as np
 import pathlib
-from ImageManipulations import *
+from ImageParsing.ImageManipulations import *
 
 
 def get_mnist_train():
