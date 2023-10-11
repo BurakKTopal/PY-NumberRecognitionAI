@@ -1,19 +1,19 @@
 import time
 from PIL import Image
 from Data import get_mnist_train, get_mnist_test, parsingPictureWithoutInversion, resizeImage, separatingNumbers, filterImages
-from NeuralNetwork import *
+from NeuralNetwork3Layers import *
+from NeuralNetwork4Layers import neuralNetworkTwo
 from Helper import plotting
 from HelperLoss import plottingLoss
 import numpy as np
 
-network = neuralNetwork()
+network = neuralNetworkTwo()
 
 
 def train():
     """"
     Training the neural network with the train set of the MNIST data set
     """
-
     images_train, labels_train = get_mnist_train()
     print("IMAGES UPLOADED!")
     loss_list = list()
@@ -27,9 +27,6 @@ def train():
         for image, label in zip(images_train, labels_train):
             image.shape += (1,)
             label.shape += (1,)
-
-
-
             network.forward(image, label)
             loss_list.append(network.loss[0])
             k += 1
@@ -57,7 +54,7 @@ def test():
 
     images_test, labels_test = get_mnist_test()
     print("IMAGES UPLOADED!")
-    network.load('modelDEFTEST.pkl')  # Loading model
+    network.load('model4Layers.pkl')  # Loading model
 
     start_time = time.perf_counter()
     correct = 0
@@ -88,6 +85,7 @@ def ForwardingPictureToNN(filename):
     filtered_images = filterImages(im)
     splitted_images = separatingNumbers(filtered_images)
 
+
     for im in splitted_images:
         im = resizeImage(im, test=True)
         try:  # If you run this file, the wd doesn't match with the given path name
@@ -96,7 +94,7 @@ def ForwardingPictureToNN(filename):
             pass
         im = parsingPictureWithoutInversion(im, True)
         im.shape = (784, 1)
-        network.load('modelDEF.pkl')
+        network.load('model4Layers.pkl')
         network.forward(im, np.empty(1))  # As there is no target in this case, an empty matrix will be sent as target
 
         output = np.array(network.output)
@@ -112,7 +110,6 @@ def ForwardingPictureToNN(filename):
             top_three_numbers[index] = str(top_three_numbers[index])  # List must have string as elements, for the tensor
                                                                         # product in data.py
 
-
         for index in range(len(top_three_numbers_probs)):  # Calculating the certainty(value/sum)
             top_three_numbers_probs[index] = round(top_three_numbers_probs[index] / (sum(output)), 3)
 
@@ -125,5 +122,5 @@ def ForwardingPictureToNN(filename):
     return int(guess), round(certainty*100, 1)
 
 if __name__ == "__main__":
-    train()
+    #train()
     test()
